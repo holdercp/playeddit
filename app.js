@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
+const session = require('express-session');
+const axios = require('axios');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -14,11 +16,21 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'cats', resave: true, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
 
 passport.use(
   new SpotifyStrategy(
@@ -27,7 +39,15 @@ passport.use(
       clientSecret: '60dec744d3974ea19b4ec8ba02b87c0f',
       callbackURL: 'http://localhost:3000/auth/spotify/callback',
     },
-    (accessToken, refreshToken, expires_in, profile, done) => done(null, profile),
+    (accessToken, refreshToken, expires_in, profile, done) => {
+      // Add access token for subsequent API requests
+      const user = {
+        id: profile.id,
+        accessToken,
+      };
+
+      done(null, user);
+    },
   ),
 );
 
@@ -40,12 +60,27 @@ app.get(
   '/auth/spotify/callback',
   passport.authenticate('spotify', {
     failureRedirect: '/login',
-    session: false,
   }),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.json({
+      msg: 'success!',
+      session: req.session,
+    });
   },
 );
+
+app.get('/api/playlist', (req, res, next) => {
+  axios
+    .get('https://api.spotify.com/v1/me/playlists', {
+      headers: {
+        Authorization: `Bearer ${req.session.passport.user.accessToken}`,
+      },
+    })
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch(err => next(err));
+});
 
 module.exports = app;

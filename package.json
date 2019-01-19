@@ -7,9 +7,11 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-session": "^1.15.6",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-spotify": "^1.0.1"
