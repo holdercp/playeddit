@@ -6,7 +6,7 @@ const session = require('express-session');
 const { passport } = require('./auth');
 
 const indexRouter = require('./routes/index');
-const playlistRouter = require('./resources/playlists').router;
+const playlistRouter = require('./resources/playlist').router;
 const authRouter = require('./auth').router;
 
 const app = express();
