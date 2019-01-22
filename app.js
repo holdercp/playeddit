@@ -7,6 +7,7 @@ const { passport } = require('./auth');
 
 const indexRouter = require('./routes/index');
 const playlistRouter = require('./resources/playlist').router;
+const subredditRouter = require('./resources/subreddit').router;
 const authRouter = require('./auth').router;
 
 const app = express();
@@ -23,5 +24,6 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/playlist', playlistRouter);
+app.use('/subreddit', subredditRouter);
 
 module.exports = app;
