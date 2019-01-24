@@ -30,8 +30,8 @@ router.get('/reddit', (req, res, next) => {
       // These need to be in env vars
       {
         auth: {
-          username: '3svT7_TDXxJzMQ',
-          password: 'EM-TyEJmwe4F-3ZGdMqrl4bD6Mo',
+          username: process.env.REDDIT_CLIENT,
+          password: process.env.REDDIT_SECRET,
         },
       },
     )
