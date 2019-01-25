@@ -30,18 +30,22 @@ const search = (req, res, next) => {
     .catch(err => next(err));
 };
 
-const getListings = (req, res, next) => {
+const getTrackTitles = (req, res, next) => {
   axiosReddit
     .get(`/r/${req.params.subreddit}/hot`, {
       headers: { Authorization: `Bearer ${req.session.reddit.accessToken}` },
     })
     .then((response) => {
-      res.json(response.data);
+      const songAndArtist = /[A-Za-z0-9] - [A-Za-z0-9]/;
+      const trackTitles = response.data.data.children
+        .filter(listing => songAndArtist.test(listing.data.title))
+        .map(listing => listing.data.title);
+      res.json(trackTitles);
     })
     .catch(err => next(err));
 };
 
 module.exports = {
   search,
-  getListings,
+  getTrackTitles,
 };
