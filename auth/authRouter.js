@@ -3,10 +3,16 @@ const axios = require('axios');
 const querystring = require('querystring');
 const passport = require('./passportConfig');
 
-router.get('/spotify', passport.authenticate('spotify'), () => {
-  // The request will be redirected to spotify for authentication, so this
-  // function will not be called.
-});
+router.get(
+  '/spotify',
+  passport.authenticate('spotify', {
+    scope: ['playlist-modify-private', 'playlist-modify-public', 'playlist-read-private'],
+  }),
+  () => {
+    // The request will be redirected to spotify for authentication, so this
+    // function will not be called.
+  },
+);
 
 router.get(
   '/spotify/callback',

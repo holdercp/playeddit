@@ -1,17 +1,8 @@
 const router = require('express').Router();
-const axios = require('axios');
+const mw = require('./playlistMiddleware');
 
-router.get('/', (req, res, next) => {
-  axios
-    .get('https://api.spotify.com/v1/me/playlists', {
-      headers: {
-        Authorization: `Bearer ${req.session.passport.user.accessToken}`,
-      },
-    })
-    .then((response) => {
-      res.json(response.data);
-    })
-    .catch(err => next(err));
-});
+router.get('/', mw.getPlaylists);
+
+router.get('/:playlistId/addTracks', mw.addTracks);
 
 module.exports = router;
