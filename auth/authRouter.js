@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const axios = require('axios');
-const querystring = require('querystring');
 const passport = require('./passportConfig');
 
 router.get(
@@ -24,30 +22,5 @@ router.get(
     res.redirect('/');
   },
 );
-
-router.get('/reddit', (req, res, next) => {
-  axios
-    .post(
-      'https://www.reddit.com/api/v1/access_token',
-      querystring.stringify({
-        grant_type: 'client_credentials',
-        scope: 'read',
-      }),
-      // These need to be in env vars
-      {
-        auth: {
-          username: process.env.REDDIT_CLIENT,
-          password: process.env.REDDIT_SECRET,
-        },
-      },
-    )
-    .then((response) => {
-      req.session.reddit = {
-        accessToken: response.data.access_token,
-      };
-      res.send(req.session);
-    })
-    .catch(err => next(err));
-});
 
 module.exports = router;

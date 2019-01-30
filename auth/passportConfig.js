@@ -1,6 +1,7 @@
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const User = require('../resources/user').model;
+const utils = require('../utilities/utils');
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -18,9 +19,7 @@ passport.use(
       callbackURL: `${process.env.HOST}/auth/spotify/callback`,
     },
     (accessToken, refreshToken, expires_in, profile, done) => {
-      const expires = Date.now() + expires_in * 1000;
-
-      console.log(profile);
+      const expires = utils.fromNow(expires_in);
 
       User.findOneAndUpdate(
         { spotifyId: profile.id },
