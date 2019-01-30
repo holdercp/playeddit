@@ -1,5 +1,6 @@
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
+const User = require('../resources/user').model;
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -14,16 +15,37 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_ID,
       clientSecret: process.env.SPOTIFY_SECRET,
-      callbackURL: 'http://localhost:3000/auth/spotify/callback',
+      callbackURL: `${process.env.HOST}/auth/spotify/callback`,
     },
     (accessToken, refreshToken, expires_in, profile, done) => {
-      // Add access token for subsequent API requests
-      const user = {
-        id: profile.id,
-        accessToken,
-      };
+      const expires = Date.now() + expires_in * 1000;
 
-      done(null, user);
+      console.log(profile);
+
+      User.findOneAndUpdate(
+        { spotifyId: profile.id },
+        {
+          spotifyId: profile.id,
+          displayName: profile.displayName,
+          profileUrl: profile.profileUrl,
+          token: {
+            refresh: refreshToken,
+            expires,
+          },
+        },
+        { upsert: true },
+        (err, user) => {
+          if (err) return done(err, user);
+
+          // Add access token for subsequent API requests
+          const userSession = {
+            id: profile.id,
+            accessToken,
+          };
+
+          return done(null, userSession);
+        },
+      );
     },
   ),
 );
