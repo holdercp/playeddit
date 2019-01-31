@@ -18,8 +18,8 @@ passport.use(
       clientSecret: process.env.SPOTIFY_SECRET,
       callbackURL: `${process.env.HOST}/auth/spotify/callback`,
     },
-    (accessToken, refreshToken, expires_in, profile, done) => {
-      const expires = utils.fromNow(expires_in);
+    (accessToken, refreshToken, expiresIn, profile, done) => {
+      const expires = utils.fromNow(expiresIn);
 
       User.findOneAndUpdate(
         { spotifyId: profile.id },
@@ -32,13 +32,13 @@ passport.use(
             expires,
           },
         },
-        { upsert: true },
+        { upsert: true, new: true },
         (err, user) => {
           if (err) return done(err, user);
 
           // Add access token for subsequent API requests
           const userSession = {
-            id: profile.id,
+            id: user.spotifyId,
             accessToken,
           };
 

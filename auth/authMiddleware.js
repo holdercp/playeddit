@@ -33,3 +33,5 @@ module.exports.authReddit = (req, res, next) => {
       .catch(err => next(err));
   }
 };
+
+module.exports.refreshSpotify = (req, res, next) => {};
