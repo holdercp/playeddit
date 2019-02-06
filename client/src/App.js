@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
+import Home from './views/Home';
 import './App.css';
 
 class App extends Component {
@@ -8,9 +8,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-        <Typography component="h2" variant="h1" gutterBottom>
-          Hello World!
-        </Typography>
+        <Home />
       </React.Fragment>
     );
   }
