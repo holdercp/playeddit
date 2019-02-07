@@ -1,19 +1,19 @@
 import React from 'react';
 import MenuAppBar from '../components/MenuAppBar';
-import PlaylistList from '../components/PlaylistList';
+import SubredditList from '../components/SubredditList';
 import Grid from '@material-ui/core/Grid';
 
-const Playlists = () => {
+const Subreddits = () => {
   return (
     <React.Fragment>
       <MenuAppBar />
       <Grid container justify="center" alignItems="center" component="section">
         <Grid item xs={4}>
-          <PlaylistList />
+          <SubredditList />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 };
 
-export default Playlists;
+export default Subreddits;

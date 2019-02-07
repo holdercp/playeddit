@@ -1,19 +1,24 @@
 import React from 'react';
+import { Grid, TextField } from '@material-ui/core';
 import MenuAppBar from '../components/MenuAppBar';
-import PlaylistList from '../components/PlaylistList';
-import Grid from '@material-ui/core/Grid';
 
-const Playlists = () => {
+const Search = () => {
   return (
     <React.Fragment>
       <MenuAppBar />
       <Grid container justify="center" alignItems="center" component="section">
         <Grid item xs={4}>
-          <PlaylistList />
+          <TextField
+            fullWidth
+            id="standard-search"
+            label="Search field"
+            type="search"
+            margin="normal"
+          />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 };
 
-export default Playlists;
+export default Search;

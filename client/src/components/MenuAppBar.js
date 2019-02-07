@@ -10,6 +10,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Button } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
 const styles = {
   root: {
@@ -26,7 +28,7 @@ const styles = {
 
 class MenuAppBar extends React.Component {
   state = {
-    auth: false,
+    auth: true,
     anchorEl: null
   };
 
@@ -85,11 +87,36 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
+                  <MenuItem onClick={this.handleClose}>
+                    <Link component={RouterLink} to="/">
+                      Home
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Link component={RouterLink} to="/playlists">
+                      Playlists
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Link component={RouterLink} to="/search">
+                      Search
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Link component={RouterLink} to="/subreddits">
+                      Subreddits
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Link component={RouterLink} to="/tracks">
+                      Tracks
+                    </Link>
+                  </MenuItem>
                   <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
                 </Menu>
               </div>
             ) : (
-              <Button href="/spotify/auth" color="inherit">
+              <Button href="#" color="inherit">
                 Log In
               </Button>
             )}
