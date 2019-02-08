@@ -28,8 +28,18 @@ const styles = {
 
 class MenuAppBar extends React.Component {
   state = {
-    auth: true,
+    auth: false,
     anchorEl: null
+  };
+
+  componentDidMount() {
+    this.setState({ auth: this.isAuthenticated() });
+  }
+
+  isAuthenticated = () => {
+    return document.cookie
+      .split(';')
+      .filter(item => item.includes('connect.sid=')).length;
   };
 
   handleChange = event => {
@@ -116,7 +126,7 @@ class MenuAppBar extends React.Component {
                 </Menu>
               </div>
             ) : (
-              <Button href="#" color="inherit">
+              <Button href="http://localhost:5000/auth/spotify" color="inherit">
                 Log In
               </Button>
             )}

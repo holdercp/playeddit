@@ -41,7 +41,12 @@ const Hero = props => {
         <Typography align="center" variant="body1" paragraph>
           Create Spotify playlists from hot posts in your favorite subreddits.
         </Typography>
-        <Button href="#" color="primary" size="large" variant="contained">
+        <Button
+          href="http://localhost:5000/auth/spotify"
+          color="primary"
+          size="large"
+          variant="contained"
+        >
           Log In With Spotify
         </Button>
       </Grid>

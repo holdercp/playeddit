@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const passport = require('./passportConfig');
+const User = require('../resources/user').model;
 
 router.get(
   '/spotify',
@@ -15,11 +16,16 @@ router.get(
 router.get(
   '/spotify/callback',
   passport.authenticate('spotify', {
-    failureRedirect: '/login',
+    failureRedirect: 'http://localhost:3000/',
   }),
-  (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+  (req, res, next) => {
+    // Successful authentication, get user info and redirect to playlists.
+    User.findOne({ spotifyId: req.session.passport.user.id }, (err, user) => {
+      if (!user) return next(err);
+
+      res.cookie('name', user.displayName);
+      return res.redirect('http://localhost:3000/playlists');
+    });
   },
 );
 
