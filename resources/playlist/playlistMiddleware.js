@@ -15,7 +15,9 @@ const getPlaylists = (req, res, next) => {
   axiosSpotify
     .request(getSpotifyPlaylists)
     .then((response) => {
-      res.json(response.data);
+      const userId = req.session.passport.user.id;
+      const usersPlaylists = response.data.items.filter(playlist => playlist.owner.id === userId);
+      res.json(usersPlaylists);
     })
     .catch(err => next(err));
 };
