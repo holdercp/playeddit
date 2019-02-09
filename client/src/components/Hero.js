@@ -42,7 +42,7 @@ const Hero = props => {
           Create Spotify playlists from hot posts in your favorite subreddits.
         </Typography>
         <Button
-          href="http://localhost:5000/auth/spotify"
+          href={`${process.env.REACT_APP_HOST}/auth/spotify`}
           color="primary"
           size="large"
           variant="contained"
