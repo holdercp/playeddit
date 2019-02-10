@@ -5,7 +5,8 @@ import Playlists from './views/Playlists';
 import Search from './views/Search';
 import Subreddits from './views/Subreddits';
 import Tracks from './views/Tracks';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 class App extends Component {
@@ -14,13 +15,13 @@ class App extends Component {
       <React.Fragment>
         <CssBaseline />
         <Router>
-          <React.Fragment>
+          <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/playlists" component={Playlists} />
-            <Route path="/search" component={Search} />
-            <Route path="/subreddits" component={Subreddits} />
-            <Route path="/tracks" component={Tracks} />
-          </React.Fragment>
+            <PrivateRoute path="/playlists" component={Playlists} />
+            <PrivateRoute path="/search" component={Search} />
+            <PrivateRoute path="/subreddits" component={Subreddits} />
+            <PrivateRoute path="/tracks" render={Tracks} />
+          </Switch>
         </Router>
       </React.Fragment>
     );

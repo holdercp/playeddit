@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-const PlaylistListItem = () => {
+const PlaylistListItem = props => {
   return (
     <ListItem>
-      <ListItemText>Playlist Title</ListItemText>
+      <ListItemText>{props.playlist.name}</ListItemText>
       <ListItemSecondaryAction>
         <ListItemIcon>
           <IconButton>

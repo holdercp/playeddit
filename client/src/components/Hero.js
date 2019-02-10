@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import isAuthed from '../auth';
 
 const styles = theme => ({
   root: {
@@ -41,14 +42,17 @@ const Hero = props => {
         <Typography align="center" variant="body1" paragraph>
           Create Spotify playlists from hot posts in your favorite subreddits.
         </Typography>
-        <Button
-          href={`${process.env.REACT_APP_HOST}/auth/spotify`}
-          color="primary"
-          size="large"
-          variant="contained"
-        >
-          Log In With Spotify
-        </Button>
+
+        {!isAuthed() && (
+          <Button
+            href={`${process.env.REACT_APP_HOST}/auth/spotify`}
+            color="primary"
+            size="large"
+            variant="contained"
+          >
+            Log In With Spotify
+          </Button>
+        )}
       </Grid>
     </Grid>
   );

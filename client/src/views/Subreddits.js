@@ -3,7 +3,7 @@ import MenuAppBar from '../components/MenuAppBar';
 import SubredditList from '../components/SubredditList';
 import Grid from '@material-ui/core/Grid';
 
-const Subreddits = () => {
+const Subreddits = props => {
   return (
     <React.Fragment>
       <MenuAppBar />

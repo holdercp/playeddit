@@ -35,6 +35,19 @@ module.exports.authReddit = (req, res, next) => {
   return next();
 };
 
+// Checks to see if client has been authed by Spotify
+// If not, go through auth process
+module.exports.checkAuth = (req, res, next) => {
+  if (req.session && req.session.passport && req.session.passport.user) {
+    next();
+  } else {
+    res.clearCookie('connect.sid', { path: '/', httpOnly: false });
+    const err = new Error('Access denied.');
+    err.status = 401;
+    next(err);
+  }
+};
+
 // Requests a new access token from Spotify if current one is expired
 module.exports.refreshSpotify = (req, res, next) => {
   if (req.session.passport && req.session.passport.user) {

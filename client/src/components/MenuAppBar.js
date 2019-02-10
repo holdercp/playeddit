@@ -12,6 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import { Button } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
+import isAuthed from '../auth';
 
 const styles = {
   root: {
@@ -27,24 +28,13 @@ const styles = {
 };
 
 class MenuAppBar extends React.Component {
-  state = {
-    auth: false,
-    anchorEl: null
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.setState({ auth: this.isAuthenticated() });
+    this.state = {
+      anchorEl: null
+    };
   }
-
-  isAuthenticated = () => {
-    return document.cookie
-      .split(';')
-      .filter(item => item.includes('connect.sid=')).length;
-  };
-
-  handleChange = event => {
-    this.setState({ auth: event.target.checked });
-  };
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -56,7 +46,7 @@ class MenuAppBar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -73,7 +63,7 @@ class MenuAppBar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               playeddit
             </Typography>
-            {auth ? (
+            {isAuthed() ? (
               <div>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
