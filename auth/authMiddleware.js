@@ -6,7 +6,9 @@ const User = require('../resources/user').model;
 // Updates the reddit access token if expired
 // Should run before any mw that calls the reddit API
 module.exports.authReddit = (req, res, next) => {
-  if (req.session.reddit && req.session.reddit.expires <= Date.now()) {
+  if (req.session.reddit && req.session.reddit.expires > Date.now()) {
+    next();
+  } else {
     axios
       .post(
         'https://www.reddit.com/api/v1/access_token',
@@ -28,11 +30,11 @@ module.exports.authReddit = (req, res, next) => {
           accessToken: response.data.access_token,
           expires,
         };
+
+        next();
       })
       .catch(err => next(err));
   }
-
-  return next();
 };
 
 // Checks to see if client has been authed by Spotify
@@ -80,11 +82,12 @@ module.exports.refreshSpotify = (req, res, next) => {
             // eslint-disable-next-line no-param-reassign
             user.token.expires = expires;
             user.save();
+            next();
           })
           .catch(error => next(error));
       }
-
-      return next();
     });
+  } else {
+    next();
   }
 };
