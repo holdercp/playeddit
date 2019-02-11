@@ -4,13 +4,15 @@ import PlaylistList from '../components/playlist/PlaylistList';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { Typography, LinearProgress } from '@material-ui/core';
 
 class Playlists extends Component {
   constructor(props) {
     super(props);
     this.state = {
       playlists: [],
-      redirect: false
+      redirect: false,
+      loading: true
     };
   }
 
@@ -18,7 +20,7 @@ class Playlists extends Component {
     axios
       .get('/playlist')
       .then(response => {
-        this.setState({ playlists: response.data });
+        this.setState({ playlists: response.data, loading: false });
       })
       .catch(err => {
         console.error(err);
@@ -42,7 +44,17 @@ class Playlists extends Component {
           component="section"
         >
           <Grid item xs={4}>
-            <PlaylistList playlists={this.state.playlists} />
+            <Typography gutterBottom variant="h6">
+              Add tracks to a playlist
+            </Typography>
+            {this.state.loading ? (
+              <LinearProgress />
+            ) : (
+              <PlaylistList
+                playlists={this.state.playlists}
+                selectPlaylist={this.props.selectPlaylist}
+              />
+            )}
           </Grid>
         </Grid>
       </React.Fragment>

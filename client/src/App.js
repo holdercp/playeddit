@@ -10,6 +10,19 @@ import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playlistId: ''
+    };
+
+    this.selectPlaylist = this.selectPlaylist.bind(this);
+  }
+
+  selectPlaylist(id) {
+    this.setState({ playlistId: id });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -17,7 +30,12 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <PrivateRoute path="/playlists" component={Playlists} />
+            <PrivateRoute
+              path="/playlists"
+              render={props => (
+                <Playlists {...props} selectPlaylist={this.selectPlaylist} />
+              )}
+            />
             <PrivateRoute path="/search" component={Search} />
             <PrivateRoute path="/subreddits" component={Subreddits} />
             <PrivateRoute path="/tracks" render={Tracks} />

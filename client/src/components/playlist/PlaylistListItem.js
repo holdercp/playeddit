@@ -1,26 +1,34 @@
-import React from 'react';
-import {
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  IconButton,
-  ListItemSecondaryAction
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import React, { Component } from 'react';
+import { ListItem, ListItemText } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
-const PlaylistListItem = props => {
-  return (
-    <ListItem>
-      <ListItemText>{props.playlist.name}</ListItemText>
-      <ListItemSecondaryAction>
-        <ListItemIcon>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </ListItemIcon>
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-};
+class PlaylistListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.selectPlaylist(this.props.playlist.id);
+    this.setState({ redirect: true });
+  }
+
+  render() {
+    return this.state.redirect ? (
+      <Redirect to="/search" />
+    ) : (
+      <ListItem button onClick={this.handleClick}>
+        <ListItemText
+          primary={this.props.playlist.name}
+          secondary={`Tracks: ${this.props.playlist.tracks.total}`}
+        />
+      </ListItem>
+    );
+  }
+}
 
 export default PlaylistListItem;

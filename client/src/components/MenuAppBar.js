@@ -16,7 +16,8 @@ import isAuthed from '../auth';
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: 32
   },
   grow: {
     flexGrow: 1
