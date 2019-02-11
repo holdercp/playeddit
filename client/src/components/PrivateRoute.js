@@ -3,16 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 import isAuthed from '../auth';
 
 const PrivateRoute = ({ component: Component, render, ...rest }) => {
-  // Either render the component wrapped in a function or the render prop directly
-  // FIXME: This is realllly hard to read
-  const renderThis = Component ? (
-    props => (isAuthed() ? <Component {...props} /> : <Redirect to="/" />)
-  ) : isAuthed() ? (
-    render
-  ) : (
-    <Redirect to="/" />
-  );
-  return <Route {...rest} render={renderThis} />;
+  const redirect = () => <Redirect to="/" />;
+
+  // Renders either the component passed in as a render function
+  // Or if a render prop was passed in, it just passes it along
+  const component = Component ? props => <Component {...props} /> : render;
+
+  return <Route {...rest} render={isAuthed() ? component : redirect} />;
 };
 
 export default PrivateRoute;
