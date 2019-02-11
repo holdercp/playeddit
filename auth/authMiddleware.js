@@ -44,7 +44,7 @@ module.exports.checkAuth = (req, res, next) => {
     next();
   } else {
     res.clearCookie('connect.sid', { path: '/', httpOnly: false });
-    const err = new Error('Access denied.');
+    const err = new Error('Unauthorized');
     err.status = 401;
     next(err);
   }

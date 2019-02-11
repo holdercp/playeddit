@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const passport = require('./passportConfig');
 const User = require('../resources/user').model;
+const mw = require('./authMiddleware');
 
 router.get(
   '/spotify',
@@ -30,5 +31,11 @@ router.get(
     });
   },
 );
+
+router.get('/check', mw.checkAuth, (req, res) => {
+  res.json({
+    msg: 'Authenticated.',
+  });
+});
 
 module.exports = router;

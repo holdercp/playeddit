@@ -42,12 +42,12 @@ app.use('/playlist', playlistRouter);
 app.use('/subreddit', subredditRouter);
 
 // global error handler
-app.use((err, req, res) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    message: err.message,
-    error: {},
-  });
-});
+// app.use((err, req, res) => {
+//   console.error(err.stack);
+//   res.status(err.status || 500).json({
+//     message: err.message,
+//     error: {},
+//   });
+// });
 
 module.exports = app;

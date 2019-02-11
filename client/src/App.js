@@ -7,6 +7,7 @@ import Tracks from './views/Tracks';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,15 @@ class App extends Component {
     };
 
     this.selectPlaylist = this.selectPlaylist.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get('/auth/check')
+      .then(() => {
+        console.log('Authenticated!');
+      })
+      .catch(err => console.error(err));
   }
 
   selectPlaylist(id) {
