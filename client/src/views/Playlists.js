@@ -45,7 +45,7 @@ class Playlists extends Component {
         >
           <Grid item xs={4}>
             <Typography gutterBottom variant="h6">
-              Add tracks to a playlist
+              Select a playlist
             </Typography>
             {this.state.loading ? (
               <LinearProgress />

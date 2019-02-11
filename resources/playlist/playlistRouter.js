@@ -6,6 +6,6 @@ router.use(authMW.refreshSpotify);
 
 router.get('/', mw.getPlaylists);
 
-router.get('/:playlistId/addTracks', mw.addTracks);
+router.post('/:playlistId/addTracks', mw.addTracks);
 
 module.exports = router;

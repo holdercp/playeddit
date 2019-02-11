@@ -11,10 +11,17 @@ const styles = theme => ({
 });
 
 const SubredditList = props => {
-  const { classes } = props;
   const subreddits = props.subreddits.map(subreddit => {
-    return <SubredditListItem subreddit={subreddit} key={subreddit.name} />;
+    return (
+      <SubredditListItem
+        subreddit={subreddit}
+        key={subreddit.name}
+        selectSubreddit={props.selectSubreddit}
+      />
+    );
   });
+
+  const { classes } = props;
   return <List className={classes.root}>{subreddits}</List>;
 };
 

@@ -13,10 +13,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistId: ''
+      playlistId: '',
+      subreddit: ''
     };
 
     this.selectPlaylist = this.selectPlaylist.bind(this);
+    this.selectSubreddit = this.selectSubreddit.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +34,10 @@ class App extends Component {
     this.setState({ playlistId: id });
   }
 
+  selectSubreddit(name) {
+    this.setState({ subreddit: name });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -45,8 +51,22 @@ class App extends Component {
                 <Playlists {...props} selectPlaylist={this.selectPlaylist} />
               )}
             />
-            <PrivateRoute path="/subreddits" component={Subreddits} />
-            <PrivateRoute path="/tracks" render={Tracks} />
+            <PrivateRoute
+              path="/subreddits"
+              render={props => (
+                <Subreddits {...props} selectSubreddit={this.selectSubreddit} />
+              )}
+            />
+            <PrivateRoute
+              path="/tracks"
+              render={props => (
+                <Tracks
+                  {...props}
+                  subreddit={this.state.subreddit}
+                  playlistId={this.state.playlistId}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </React.Fragment>

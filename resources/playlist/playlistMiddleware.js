@@ -29,8 +29,8 @@ const addTracks = (req, res, next) => {
     headers: {
       Authorization: `Bearer ${req.session.passport.user.accessToken}`,
     },
-    params: {
-      uris: req.query.uris,
+    data: {
+      uris: req.body.data.uris,
     },
   };
   axiosSpotify
