@@ -19,7 +19,7 @@ class PlaylistListItem extends Component {
 
   render() {
     return this.state.redirect ? (
-      <Redirect to="/search" />
+      <Redirect to="/subreddits" />
     ) : (
       <ListItem button onClick={this.handleClick}>
         <ListItemText

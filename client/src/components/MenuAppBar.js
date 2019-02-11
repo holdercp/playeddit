@@ -99,11 +99,6 @@ class MenuAppBar extends React.Component {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={this.handleClose}>
-                    <Link component={RouterLink} to="/search">
-                      Search
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={this.handleClose}>
                     <Link component={RouterLink} to="/subreddits">
                       Subreddits
                     </Link>

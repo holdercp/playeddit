@@ -86,8 +86,7 @@ module.exports.refreshSpotify = (req, res, next) => {
           })
           .catch(error => next(error));
       }
+      return next();
     });
-  } else {
-    next();
   }
 };

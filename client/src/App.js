@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from './views/Home';
 import Playlists from './views/Playlists';
-import Search from './views/Search';
 import Subreddits from './views/Subreddits';
 import Tracks from './views/Tracks';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -36,7 +35,6 @@ class App extends Component {
                 <Playlists {...props} selectPlaylist={this.selectPlaylist} />
               )}
             />
-            <PrivateRoute path="/search" component={Search} />
             <PrivateRoute path="/subreddits" component={Subreddits} />
             <PrivateRoute path="/tracks" render={Tracks} />
           </Switch>
