@@ -17,7 +17,7 @@ router.get(
 router.get(
   '/spotify/callback',
   passport.authenticate('spotify', {
-    failureRedirect: process.env.ENV === 'dev' ? 'http://localhost:3000/' : '/',
+    failureRedirect: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : '/',
   }),
   (req, res, next) => {
     // Successful authentication, get user info and redirect to playlists.
@@ -26,7 +26,7 @@ router.get(
 
       res.cookie('name', user.displayName);
       return res.redirect(
-        process.env.ENV === 'dev' ? 'http://localhost:3000/playlists' : '/playlists',
+        process.env.NODE_ENV === 'development' ? 'http://localhost:3000/playlists' : '/playlists',
       );
     });
   },
