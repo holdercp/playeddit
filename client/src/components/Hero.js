@@ -46,7 +46,11 @@ const Hero = props => {
 
         {!isAuthed() ? (
           <Button
-            href={`${process.env.REACT_APP_HOST}/auth/spotify`}
+            href={
+              process.env.REACT_APP_HOST
+                ? `${process.env.REACT_APP_HOST}/auth/spotify`
+                : '/auth/spotify'
+            }
             color="primary"
             size="large"
             variant="contained"

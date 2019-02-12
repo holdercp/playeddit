@@ -63,7 +63,7 @@ class MenuAppBar extends React.Component {
               </Button>
             ) : (
               <Button
-                href={`${process.env.REACT_APP_HOST}/auth/spotify`}
+                href={(process.env.REACT_APP_HOST) ? `${process.env.REACT_APP_HOST}/auth/spotify` : '/auth/spotify' }
                 color="inherit"
               >
                 Log In
