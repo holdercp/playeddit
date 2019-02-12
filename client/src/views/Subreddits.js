@@ -60,7 +60,7 @@ class Subreddits extends Component {
             {this.state.subreddits.length ? (
               <React.Fragment>
                 <Typography gutterBottom variant="h6">
-                  Pick tracks from a subreddit
+                  Select a subreddit
                 </Typography>
                 <SubredditList
                   subreddits={this.state.subreddits}

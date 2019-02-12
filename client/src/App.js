@@ -13,7 +13,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistId: '',
+      playlist: {
+        id: '',
+        name: ''
+      },
       subreddit: ''
     };
 
@@ -30,8 +33,8 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  selectPlaylist(id) {
-    this.setState({ playlistId: id });
+  selectPlaylist(id, name) {
+    this.setState({ playlist: { id: id, name: name } });
   }
 
   selectSubreddit(name) {
@@ -63,7 +66,7 @@ class App extends Component {
                 <Tracks
                   {...props}
                   subreddit={this.state.subreddit}
-                  playlistId={this.state.playlistId}
+                  playlist={this.state.playlist}
                 />
               )}
             />

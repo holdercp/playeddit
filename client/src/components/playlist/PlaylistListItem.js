@@ -13,7 +13,7 @@ class PlaylistListItem extends Component {
   }
 
   handleClick() {
-    this.props.selectPlaylist(this.props.playlist.id);
+    this.props.selectPlaylist(this.props.playlist.id, this.props.playlist.name);
     this.setState({ redirect: true });
   }
 

@@ -4,6 +4,7 @@ import TrackList from '../components/track/TrackList';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { Typography, LinearProgress, Button } from '@material-ui/core';
+import Redirect from 'react-router-dom/Redirect';
 
 class Tracks extends Component {
   constructor(props) {
@@ -11,7 +12,9 @@ class Tracks extends Component {
     this.state = {
       tracks: [],
       loading: true,
-      selectedTrackURIs: []
+      selectedTrackURIs: [],
+      redirect: false,
+      redirectTo: '/'
     };
 
     this.updateTrackURIs = this.updateTrackURIs.bind(this);
@@ -19,12 +22,16 @@ class Tracks extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`/subreddit/${this.props.subreddit}`)
-      .then(response => {
-        this.setState({ tracks: response.data, loading: false });
-      })
-      .catch(err => console.log(err));
+    if (!this.props.playlist) {
+      this.setState({ redirect: true });
+    } else {
+      axios
+        .get(`/subreddit/${this.props.subreddit}`)
+        .then(response => {
+          this.setState({ tracks: response.data, loading: false });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   updateTrackURIs(trackURI) {
@@ -43,19 +50,21 @@ class Tracks extends Component {
 
   submitTracks() {
     axios
-      .post(`/playlist/${this.props.playlistId}/addTracks`, {
+      .post(`/playlist/${this.props.playlist.id}/addTracks`, {
         data: {
           uris: this.state.selectedTrackURIs
         }
       })
-      .then(response => {
-        console.log(response.data);
+      .then(() => {
+        this.setState({ redirect: true, redirectTo: '/success' });
       })
       .catch(err => console.error(err));
   }
 
   render() {
-    return (
+    return this.state.redirect ? (
+      <Redirect to={this.state.redirectTo} />
+    ) : (
       <React.Fragment>
         <MenuAppBar />
         <Grid
@@ -66,7 +75,8 @@ class Tracks extends Component {
         >
           <Grid item xs={4}>
             <Typography gutterBottom variant="h6">
-              Add tracks to playlist
+              Add tracks to {this.props.playlist.name} from{' '}
+              {this.props.subreddit}
             </Typography>
             {this.state.loading ? (
               <LinearProgress />
