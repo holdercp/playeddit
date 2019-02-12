@@ -25,9 +25,7 @@ router.get(
       if (!user) return next(err);
 
       res.cookie('name', user.displayName);
-      return res.redirect(
-        process.env.NODE_ENV === 'development' ? 'http://localhost:3000/playlists' : '/playlists',
-      );
+      return res.redirect(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : '/');
     });
   },
 );
