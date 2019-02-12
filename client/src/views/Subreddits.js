@@ -63,7 +63,7 @@ class Subreddits extends Component {
           alignItems="center"
           component="section"
         >
-          <Grid item xs={4}>
+          <Grid item xs={12} md={6} lg={4}>
             {this.state.subreddits.length ? (
               <React.Fragment>
                 <Typography gutterBottom variant="h6">
