@@ -3,11 +3,6 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 const User = require('../resources/user').model;
 const utils = require('../utilities/utils');
 
-// Set correct host per env
-const host = process.env.NODE_ENV === 'development'
-  ? `${process.env.HOST}/auth/spotify/callback`
-  : '/auth/spotify/callback';
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -21,7 +16,7 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_ID,
       clientSecret: process.env.SPOTIFY_SECRET,
-      callbackURL: host,
+      callbackURL: `${process.env.HOST}/auth/spotify/callback`,
     },
     (accessToken, refreshToken, expiresIn, profile, done) => {
       const expires = utils.fromNow(expiresIn);
