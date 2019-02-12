@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import axios from 'axios';
+import Success from './views/Success';
+import NotFound from './views/NotFound';
 
 class App extends Component {
   constructor(props) {
@@ -74,6 +76,13 @@ class App extends Component {
                 />
               )}
             />
+            <PrivateRoute
+              path="/success"
+              render={props => (
+                <Success {...props} playlist={this.state.playlist} />
+              )}
+            />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </React.Fragment>
