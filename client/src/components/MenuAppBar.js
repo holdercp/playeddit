@@ -48,7 +48,14 @@ class MenuAppBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              playeddit
+              <Link
+                component={RouterLink}
+                to="/"
+                color="inherit"
+                underline="none"
+              >
+                playeddit
+              </Link>
             </Typography>
             {isAuthed() ? (
               <Button href="/playlists" color="inherit">

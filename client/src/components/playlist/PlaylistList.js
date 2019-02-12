@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import PlaylistListItem from './PlaylistListItem';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -20,7 +20,13 @@ const PlaylistList = props => {
   ));
 
   const { classes } = props;
-  return <List className={classes.root}>{playlists}</List>;
+  return playlists.length > 0 ? (
+    <List className={classes.root}>{playlists}</List>
+  ) : (
+    <Typography variant="body1">
+      It appears you have no Spotify playlists. Go make one. I'll wait.
+    </Typography>
+  );
 };
 
 export default withStyles(styles)(PlaylistList);

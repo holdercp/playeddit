@@ -2,6 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import TrackListItem from './TrackListItem';
 import { withStyles } from '@material-ui/core';
+import Empty from '../Empty';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,11 @@ const TrackList = props => {
   });
 
   const { classes } = props;
-  return <List className={classes.root}>{tracks}</List>;
+  return tracks.length > 0 ? (
+    <List className={classes.root}>{tracks}</List>
+  ) : (
+    <Empty />
+  );
 };
 
 export default withStyles(styles)(TrackList);

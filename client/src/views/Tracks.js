@@ -86,13 +86,15 @@ class Tracks extends Component {
                   tracks={this.state.tracks}
                   updateTrackURIs={this.updateTrackURIs}
                 />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.submitTracks}
-                >
-                  Add Tracks
-                </Button>
+                {this.state.tracks.length > 0 && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.submitTracks}
+                  >
+                    Add Tracks
+                  </Button>
+                )}
               </React.Fragment>
             )}
           </Grid>

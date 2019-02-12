@@ -2,6 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import SubredditListItem from './SubredditListItem';
 import { withStyles } from '@material-ui/core';
+import Empty from '../Empty';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,11 @@ const SubredditList = props => {
   });
 
   const { classes } = props;
-  return <List className={classes.root}>{subreddits}</List>;
+  return subreddits.length > 0 ? (
+    <List className={classes.root}>{subreddits}</List>
+  ) : (
+    <Empty />
+  );
 };
 
 export default withStyles(styles)(SubredditList);
