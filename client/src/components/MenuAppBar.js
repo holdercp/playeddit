@@ -58,7 +58,7 @@ class MenuAppBar extends React.Component {
               </Link>
             </Typography>
             {isAuthed() ? (
-              <Button href="/playlists" color="inherit">
+              <Button component={RouterLink} to="/playlists" color="inherit">
                 Playlists
               </Button>
             ) : (

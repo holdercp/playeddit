@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import isAuthed from '../auth';
+import Link from 'react-router-dom/Link';
 
 const styles = theme => ({
   root: {
@@ -43,7 +44,7 @@ const Hero = props => {
           Create Spotify playlists from hot posts in your favorite subreddits.
         </Typography>
 
-        {!isAuthed() && (
+        {!isAuthed() ? (
           <Button
             href={`${process.env.REACT_APP_HOST}/auth/spotify`}
             color="primary"
@@ -51,6 +52,16 @@ const Hero = props => {
             variant="contained"
           >
             Log In With Spotify
+          </Button>
+        ) : (
+          <Button
+            component={Link}
+            to="/playlists"
+            color="primary"
+            size="large"
+            variant="contained"
+          >
+            Choose a Playlist
           </Button>
         )}
       </Grid>
