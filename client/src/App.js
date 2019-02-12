@@ -57,7 +57,11 @@ class App extends Component {
             <PrivateRoute
               path="/subreddits"
               render={props => (
-                <Subreddits {...props} selectSubreddit={this.selectSubreddit} />
+                <Subreddits
+                  {...props}
+                  selectSubreddit={this.selectSubreddit}
+                  playlist={this.state.playlist}
+                />
               )}
             />
             <PrivateRoute

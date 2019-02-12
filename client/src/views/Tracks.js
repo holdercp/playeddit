@@ -22,7 +22,7 @@ class Tracks extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.playlist) {
+    if (!this.props.playlist.id) {
       this.setState({ redirect: true });
     } else {
       axios

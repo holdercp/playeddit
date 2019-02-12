@@ -10,11 +10,18 @@ class Subreddits extends Component {
     super(props);
     this.state = {
       redirect: false,
+      redirectTo: '/',
       loading: false,
       subreddits: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (!this.props.playlist.id) {
+      this.setState({ redirect: true, redirectTo: '/playlists' });
+    }
   }
 
   handleSubmit(event) {
@@ -46,7 +53,7 @@ class Subreddits extends Component {
   render() {
     const { redirect } = this.state;
     return redirect ? (
-      <Redirect to="/" />
+      <Redirect to={this.state.redirectTo} />
     ) : (
       <React.Fragment>
         <MenuAppBar />
