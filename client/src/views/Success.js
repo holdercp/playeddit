@@ -33,7 +33,7 @@ const Success = props => {
         component="section"
         className={classes.root}
       >
-        <Grid item xs={12} className={classes.gridItem}>
+        <Grid item xs={10} className={classes.gridItem}>
           <Typography variant="h2" align="center">
             Success!
           </Typography>

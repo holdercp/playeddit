@@ -8,7 +8,7 @@ const NotFound = () => {
     <div>
       <MenuAppBar />
       <Grid container justify="center" alignItems="center" component="section">
-        <Grid item xs={12}>
+        <Grid item xs={10}>
           <Typography variant="h2" align="center" gutterBottom>
             404 Not Found :(
           </Typography>

@@ -73,7 +73,7 @@ class Tracks extends Component {
           alignItems="center"
           component="section"
         >
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={10} md={6} lg={4}>
             <Typography gutterBottom variant="h6">
               Add tracks to {this.props.playlist.name} from{' '}
               {this.props.subreddit}
