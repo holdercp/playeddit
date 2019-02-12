@@ -91,6 +91,7 @@ class Tracks extends Component {
                     variant="contained"
                     color="primary"
                     onClick={this.submitTracks}
+                    disabled={this.state.selectedTrackURIs.length === 0}
                   >
                     Add Tracks
                   </Button>
