@@ -9,7 +9,6 @@ const logger = require('morgan');
 const session = require('express-session');
 const crypto = require('crypto');
 const { passport } = require('./auth');
-const { checkAuth } = require('./auth').middleware;
 
 const playlistRouter = require('./resources/playlist').router;
 const subredditRouter = require('./resources/subreddit').router;
@@ -35,9 +34,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', authRouter);
-
-// Check auth before accessing resources
-app.use(checkAuth);
 app.use('/playlist', playlistRouter);
 app.use('/subreddit', subredditRouter);
 
